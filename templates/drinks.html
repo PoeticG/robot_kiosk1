@@ -1,0 +1,110 @@
+<!-- drinks.html - now used for coffee selection -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Coffee</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .coffee-table {
+            width: 100%;
+            max-width: 800px;
+            margin: auto;
+            border-collapse: collapse;
+        }
+
+        .coffee-table td {
+            padding: 16px;
+            vertical-align: middle;
+        }
+
+        .coffee-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .coffee-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+        }
+
+        .hot-iced-options {
+            text-align: left;
+        }
+
+        .coffee-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        input[type="radio"] {
+            transform: scale(1.2);
+            margin-right: 6px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>☕ Select Your Coffee</h2>
+        <form method="POST" action="/drinks">
+            <table class="coffee-table">
+                {% for coffee in coffees %}
+                <tr>
+                    <td>
+                        <div class="coffee-item">
+                            <img src="{{ coffee.image_url }}" alt="{{ coffee.name }}" class="coffee-img">
+                            <div class="coffee-title">{{ coffee.name }}</div>
+                        </div>
+                    </td>
+                    <td class="hot-iced-options">
+                        {% if 'hot' in coffee.options %}
+                            <label>
+                                <input type="radio" name="drinks_{{ loop.index }}" value="{{ coffee.name }} - Hot">
+                                Hot
+                            </label><br>
+                        {% endif %}
+                        {% if 'iced' in coffee.options %}
+                            <label>
+                                <input type="radio" name="drinks_{{ loop.index }}" value="{{ coffee.name }} - Iced">
+                                Iced
+                            </label>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            <div class="button-group">
+                <div style="margin-top: 20px;">
+                    <a href="/" class="home-button">⬅ Back</a>
+                    <button type="submit">Done ➡</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- JavaScript to allow deselecting radio buttons -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const radios = document.querySelectorAll('input[type="radio"]');
+            const lastSelected = {};
+
+            radios.forEach(radio => {
+                radio.addEventListener('click', function () {
+                    const groupName = this.name;
+
+                    if (lastSelected[groupName] === this) {
+                        this.checked = false;
+                        lastSelected[groupName] = null;
+                    } else {
+                        lastSelected[groupName] = this;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

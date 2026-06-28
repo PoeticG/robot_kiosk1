@@ -1,0 +1,168 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+
+    background-color: #f8e7ce;
+    
+    background-position: center;
+    background-attachment: fixed;
+    background-size: auto;
+
+}
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+h1 {
+    color: #333;
+}
+
+form {
+    margin-top: 20px;
+}
+
+.option {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Centered order complete message page */
+.fullscreen-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full height */
+    background-color: #f0f0f0;
+}
+
+.message {
+    background-color: white;
+    padding: 40px 60px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    font-size: 28px;
+    color: #333;
+    text-align: center;
+}
+
+.home-button {
+            margin-top: 20px; /* Add this line */
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+        }
+        .home-button:hover {
+            background-color: #45a049;
+        }
+
+.thankyou-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card {
+    background-color: lightskyblue;
+    max-width: 500px;
+    margin: 80px auto;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    font-size: 16px;
+}
+
+/*back button */
+.card-button-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 40px;
+    position: relative;
+}
+
+.back-button {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+
+.last-button {
+            padding: 10px 20px;
+            font-size: 14px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+            justify-content: space-between;
+}
+
+.button-group {
+    
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.admin-container {
+    
+    background-color: lightskyblue;
+    max-width: 100px;
+    margin: 80px auto;
+    padding: 40px;
+    border-radius: 12px;
+
+    max-width: 800px;
+    margin: auto;
+}
+
+.order-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 15px 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.order-card p {
+    margin: 6px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.sort-form {
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+.sort-form select {
+    padding: 6px 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}

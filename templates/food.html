@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Pastries</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .pastry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .pastry-card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .pastry-card:hover {
+            transform: scale(1.05);
+        }
+
+        .pastry-card.selected {
+            outline: 3px solid #4CAF50;
+        }
+
+        .pastry-card img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .pastry-name {
+            margin-top: 8px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .submit-row {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>🥐 Select Pastries</h2>
+        <form method="POST" action="/select_food">
+            <div class="pastry-grid">
+                {% for pastry in pastries %}
+                    <div class="pastry-card" onclick="togglePastry(this)">
+                        <img src="{{ pastry.image_url }}" alt="{{ pastry.name }}">
+                        <div class="pastry-name">{{ pastry.name }}</div>
+                        <input type="checkbox" name="food" value="{{ pastry.name }}" style="display: none;">
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="submit-row">
+                <a href="/drinks" class="home-button">⬅ Back</a>
+                <button type="submit">Done ➡</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function togglePastry(card) {
+            const checkbox = card.querySelector('input[type="checkbox"]');
+            checkbox.checked = !checkbox.checked;
+            card.classList.toggle('selected', checkbox.checked);
+        }
+    </script>
+</body>
+</html>

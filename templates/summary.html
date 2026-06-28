@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Summary</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .summary-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 10px;
+        }
+        .summary-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding: 8px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+        }
+        .summary-details {
+            flex-grow: 1;
+            text-align: left;
+        }
+        .qty-input {
+            width: 50px;
+            padding: 4px;
+            font-size: 14px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        h3 {
+            margin-top: 30px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>📋 Order Summary</h2>
+
+        <form method="POST" action="/finish_order">
+            {% if drinks %}
+                <h3>☕ Drinks</h3>
+                {% for drink in drinks %}
+                    <div class="summary-item">
+                        <img src="{{ drink.image_url }}" alt="{{ drink.name }}" class="summary-img">
+                        <div class="summary-details">
+                            <strong>{{ drink.name }}</strong><br>
+                            <small>{{ drink.variant }}</small>
+                        </div>
+                        <input type="number" name="drink_qty_{{ loop.index }}" min="1" max="10" value="1" class="qty-input">
+                        <input type="hidden" name="drink_item_{{ loop.index }}" value="{{ drink.name }} - {{ drink.variant }}">
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            {% if food %}
+                <h3>🥐 Pastries</h3>
+                {% for item in food %}
+                    <div class="summary-item">
+                        <img src="{{ item.image_url }}" alt="{{ item.name }}" class="summary-img">
+                        <div class="summary-details">
+                            <strong>{{ item.name }}</strong>
+                        </div>
+                        <input type="number" name="food_qty_{{ loop.index }}" min="1" max="10" value="1" class="qty-input">
+                        <input type="hidden" name="food_item_{{ loop.index }}" value="{{ item.name }}">
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <div class="card-button-group">
+                <a href="/food" class="last-button">⬅️ Back</a>
+                <button type="submit">Done ➔</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

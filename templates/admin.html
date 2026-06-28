@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="refresh" content="3">
+    <title>Cashier Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="admin-container">
+        <h2>🧾 All Orders</h2>
+
+        <form class="sort-form" method="GET" action="/admin">
+            <label for="sort">Sort by:</label>
+            <select name="sort" id="sort" onchange="this.form.submit()">
+                <option value="newest" {% if sort == 'newest' %}selected{% endif %}>Newest First</option>
+                <option value="oldest" {% if sort == 'oldest' %}selected{% endif %}>Oldest First</option>
+            </select>
+
+            <label for="filter">Filter by:</label>
+            <select name="filter" id="filter" onchange="this.form.submit()">
+                <option value="all" {% if filter == 'all' %}selected{% endif %}>All</option>
+                <option value="drinks" {% if filter == 'drinks' %}selected{% endif %}>Drinks Only</option>
+                <option value="food" {% if filter == 'food' %}selected{% endif %}>Food Only</option>
+            </select>
+        </form>
+
+        {% if orders %}
+            {% for order in orders %}
+                <div class="order-card">
+                    <p>
+                        Order #{% if sort == 'newest' %}{{ loop.revindex }}{% else %}{{ loop.index }}{% endif %} 
+                       | Date: {{ order['timestamp'].split(' ')[0] }} |
+                        Time: {{ order['timestamp'].split(' ')[1] }}<br>
+
+                        {% if filter == 'drinks' and order['drinks'] %}
+                            🧃 <strong>Drinks:</strong> {{ order['drinks'] }}
+                        {% elif filter == 'food' and order['food'] %}
+                            🍔 <strong>Food:</strong> {{ order['food'] }}
+                        {% elif filter == 'all' %}
+                            {% if order['drinks'] %}
+                                🧃 <strong>Drinks:</strong> {{ order['drinks'] }}<br>
+                            {% endif %}
+                            {% if order['food'] %}
+                                🍔 <strong>Food:</strong> {{ order['food'] }}
+                            {% endif %}
+                        {% endif %}
+                    </p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No orders yet.</p>
+        {% endif %}
+
+        <form method="POST" action="/clear_orders">
+            <button type="submit">🗑️ Clear All Orders</button>
+        </form>
+    </div>
+</body>
+</html>
